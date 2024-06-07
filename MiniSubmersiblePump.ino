@@ -26,7 +26,7 @@ const float dataPoints[100] = {
 
 int index = 0; // Index to track the current data point
 unsigned long previousMillis = 0; // Store the last time the data point was updated
-const unsigned long interval = 2; // Interval between data points in milliseconds
+const unsigned long interval = 10; // Interval between data points in milliseconds
 const int triggerIndex = 50; // Index where trigger is fired
 
 
@@ -69,13 +69,13 @@ void loop() {
     
     // Fire trigger (ideally this should be in a function)
     if (index == triggerIndex) {
-      digitalWrite(triggerPin, HIGH);
+      // digitalWrite(triggerPin, HIGH);
       // delay(10); // The delay is a dirty way of sending a reliable width pulse at the cost of slowing down the rest of the code
-      // analogWrite(triggerPin, 255); // There might be a way to use PWM signals to control the width of the output
+      analogWrite(triggerPin, 255); // There might be a way to use PWM signals to control the width of the output
     }
     else {
-      digitalWrite(triggerPin, LOW);
-      // analogWrite(triggerPin, 0);
+      // digitalWrite(triggerPin, LOW);
+      analogWrite(triggerPin, 0);
     }
 
 
