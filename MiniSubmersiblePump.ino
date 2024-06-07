@@ -1,7 +1,7 @@
-const int motorPin1 = 12; // IN1 pin on L298N
-const int motorPin2 = 13; // IN2 pin on L298N
+const int motorPin1 = 11; // IN1 pin on L298N
+const int motorPin2 = 12; // IN2 pin on L298N
 const int enablePin = 3;  // ENA pin on L298N (PWM)
-const int triggerPin = 4; // TRIG OUT pin
+const int triggerPin = 5; // TRIG OUT pin
 
 
 const float dataPoints[100] = { 
@@ -26,7 +26,7 @@ const float dataPoints[100] = {
 
 int index = 0; // Index to track the current data point
 unsigned long previousMillis = 0; // Store the last time the data point was updated
-const unsigned long interval = 10; // Interval between data points in milliseconds
+const unsigned long interval = 2; // Interval between data points in milliseconds
 const int triggerIndex = 50; // Index where trigger is fired
 
 
@@ -56,20 +56,26 @@ void loop() {
     // Write the motor value to the enable pin (PWM control)
     analogWrite(enablePin, motorValue);
 
+   
     // Serial output for debugging
-    Serial.print("Index: ");
-    Serial.print(index);
-    Serial.print(" | Data Point: ");
-    Serial.print(dataPoints[index]);
-    Serial.print(" | Motor Value (PWM): ");
-    Serial.println(motorValue);
+    // Serial.print("Index: ");
+    // Serial.print(index);
+    // Serial.print(" | Data Point: ");
+    // Serial.print(dataPoints[index]);
+    // Serial.print(" | Motor Value (PWM): ");
+    // Serial.println(motorValue);
+    // Serial.print(" | millis() value: ");
+    // Serial.println(currentMillis);
     
     // Fire trigger (ideally this should be in a function)
     if (index == triggerIndex) {
       digitalWrite(triggerPin, HIGH);
+      // delay(10); // The delay is a dirty way of sending a reliable width pulse at the cost of slowing down the rest of the code
+      // analogWrite(triggerPin, 255); // There might be a way to use PWM signals to control the width of the output
     }
     else {
       digitalWrite(triggerPin, LOW);
+      // analogWrite(triggerPin, 0);
     }
 
 
